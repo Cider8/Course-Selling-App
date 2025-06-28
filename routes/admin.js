@@ -4,7 +4,7 @@ const Router= express.Router;
 const adminRouter = Router();
 const {adminModel} = require("../db")
 
-//app.use(adminMiddleware)
+//bcrypt,zod,jsonwebtoken
 
 adminRouter.post("/signup",function(req,res){
     res.json({
