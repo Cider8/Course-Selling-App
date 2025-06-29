@@ -9,6 +9,7 @@ require('dotenv').config();
 require("./db"); 
 const app=express();
 app.use(express.json());
+// console.log(process.env.MONGO_URL)
 
 app.use("/api/v1/user",userRouter);
 app.use("/api/v1/admin",adminRouter)

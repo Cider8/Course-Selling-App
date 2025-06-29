@@ -119,15 +119,34 @@ adminRouter.post("/course",adminmiddleware,async function(req,res){//create cour
     })
 })
 
-adminRouter.put("/course",function(req,res){//change course
+adminRouter.put("/course",adminmiddleware,async function(req,res){//change course
+    const adminId=req.userId;
+
+    const {title,description,imageUrl,price,courseId}=req.body;
+    const course = await courseModel.updateOne({
+        _id:courseId,
+        creatorId:adminId// this is protecting db when creator updating each other database
+    },{
+        title:title,
+        description:description,
+        imageUrl:imageUrl,
+        price:price
+    })
     res.json({
-        message: " Signup endpoint" 
+        message: "Course Updated",
+        courseId:course._id 
     })
 })
 
-adminRouter.get("/course",function(req,res){//get course
+adminRouter.get("/course",adminmiddleware,async function(req,res){//get course
+    const adminId = req.userId;
+    const course = await courseModel.find({
+        creatorId:adminId
+    })
+   
     res.json({
-        message: " Signup endpoint" 
+        message: " get all courses",
+        courseId:course._id 
     })
 })
 
