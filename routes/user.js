@@ -4,7 +4,7 @@ const {userModel} = require("../db")
 const bcrypt= require('bcrypt');
 const {z}=require('zod');
 const jwt = require("jsonwebtoken");
-const JWT_USER_PASSWORD="alkajaiat08";
+const {JWT_USER_PASSWORD}=require("../config")
 
 // zod schema for validate input
 const userRouter = Router();

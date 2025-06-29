@@ -1,6 +1,9 @@
 const { default: mongoose } = require("mongoose");
+require('dotenv').config();
 console.log("connected db");
-mongoose.connect("mongodb+srv://kajalkri2323:umE9tqnFLfLqXrdk@cluster0.hskwjlj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+mongoose.connect(process.env.MONGO_URL)
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.error("Connection error:", err));
 const Schema = mongoose.Schema;
 const ObjectId= mongoose.Types.ObjectId;
 
@@ -34,7 +37,7 @@ const purchaseSchema = new Schema({
 const userModel = mongoose.model("user",userSchema);
 const adminModel = mongoose.model("admin",adminSchema);
 const courseModel = mongoose.model("courses",courseSchema);
-const purchaseModel = mongoose.model("purchase",userSchema);
+const purchaseModel = mongoose.model("purchase",purchaseSchema);
 
 module.exports={
     userModel,
