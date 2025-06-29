@@ -107,7 +107,7 @@ adminRouter.post("/course",adminmiddleware,async function(req,res){//create cour
     //creating a web3 saas
     const course= await courseModel.create({
         title: title, 
-        description: desacription, 
+        description: description, 
         imageUrl: imageUrl,
         price: price,
         creatorId:adminId
