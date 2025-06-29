@@ -1,6 +1,6 @@
 const express=require('express')
 const Router = express.Router;
-const {userModel} = require("../db")
+const {userModel, purchaseModel, courseModel} = require("../db")
 const bcrypt= require('bcrypt');
 const {z}=require('zod');
 const jwt = require("jsonwebtoken");
@@ -92,9 +92,18 @@ const userRouter = Router();
             });
         }
     })
-    userRouter.post("/purchases",function(req,res){
+    userRouter.post("/purchases",async function(req,res){
+        const userId = req.userId;
+
+        const purchases = await purchaseModel.find({
+            userId
+        })
+
+        const courseData = await courseModel.find({
+            _id:{$in: purchases.map(x=>x.courseId)}
+        })
         res.json({
-            message:"signup endpoint"
+            purchases
         })
     })
 
